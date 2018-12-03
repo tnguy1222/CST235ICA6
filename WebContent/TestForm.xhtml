@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>JSF Login Page</title>
+	</h:head> 
+	
+<body> 
+
+	<!-- Set the layout and Title for this page -->
+	<ui:composition template="/layouts/commonLayout.xhtml"> 
+	<ui:define name="tiltle"> JSF Login Page</ui:define>
+	<ui:define name="content">
+		<!-- login form -->
+		<div align ="center">
+	<h:form>
+		First Name: <h:inputText id="firstName" value="#{user.firstName}" title=""/> <br/> <h:message for = "firstName"/><br/>
+		Last Name: <h:inputText id="lastName" value="#{user.lastName}" title=""/> <br/> <h:message for = "lastName"/><br/>
+		<h:commandButton value ="Submit" action="#{formController.onSubmit(user)}" /><br/> 
+	</h:form>
+	<h:message />
+	</div>
+	</ui:define>
+	</ui:composition>
+</body> 
+</html>

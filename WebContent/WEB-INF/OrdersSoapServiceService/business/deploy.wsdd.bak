@@ -1,0 +1,70 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from OrdersSoapServiceService WSDL service -->
+
+  <service name="OrdersSoapService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://business"/>
+      <parameter name="wsdlServiceElement" value="OrdersSoapServiceService"/>
+      <parameter name="schemaQualified" value="http://business"/>
+      <parameter name="wsdlServicePort" value="OrdersSoapService"/>
+      <parameter name="className" value="business.OrdersSoapServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="OrdersSoapService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getOrders" qname="operNS:getOrders" xmlns:operNS="http://business" returnQName="retNS:getOrdersReturn" xmlns:retNS="http://business" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://business" returnItemQName="tns:item" xmlns:tns="http://business" soapAction="" >
+      </operation>
+      <operation name="sayHello" qname="operNS:sayHello" xmlns:operNS="http://business" returnQName="retNS:sayHelloReturn" xmlns:retNS="http://business" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://business" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="sayHello getOrders"/>
+
+      <arrayMapping
+        xmlns:ns="http://business"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://business"
+        qname="ns:>getOrdersResponse"
+        type="java:business.GetOrdersResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://business"
+        qname="ns:>sayHelloResponse"
+        type="java:business.SayHelloResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://business"
+        qname="ns:>getOrders"
+        type="java:business.GetOrders"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://business"
+        qname="ns:>sayHello"
+        type="java:business.SayHello"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
